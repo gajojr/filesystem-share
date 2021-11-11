@@ -13,12 +13,18 @@ const Form = () => {
 
     socket.emit('requestAccess', roomId);
 
-    socket.on('requestBack', (message: string) => console.log(message));
+    socket.on('accessAllowed', () => {
+      
+    });
+  }
+
+  const createRoom = () => {
+    window.location.href = '/file-system';
   }
 
   return (
     <FormContainer onSubmit={onSubmit}>
-      <button type='button'>Open your file system</button>
+      <button type='button' onClick={createRoom}>Open your file system</button>
       or
       <label>
         Input room id for someone's file system:
