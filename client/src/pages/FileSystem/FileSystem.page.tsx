@@ -12,16 +12,19 @@ const FileSystem = () => {
       sessionStorage.setItem('roomId', roomId);
     });
 
-    socket.on('accessRequested', () => {
-      if (window.confirm('User wants to join, accept?')) {
-        socket.emit('allowAccess');
-      } else {
-        socket.emit('declineAccess');
-      }
+    socket.on('accessRequested', clientId => {
+      // remove timeout in production
+      setTimeout(() => {
+        if (window.confirm('User wants to join, accept?')) {
+          socket.emit('allowAccess', clientId);
+        } else {
+          socket.emit('declineAccess', clientId);
+        }
+      }, 3000);
     });
 
     return () => {
-      socket.off('createRoom');
+      socket.off('roomCreated');
     }
   }, [socket])
 

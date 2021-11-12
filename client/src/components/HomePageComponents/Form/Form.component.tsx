@@ -14,7 +14,11 @@ const Form = () => {
     socket.emit('requestAccess', roomId);
 
     socket.on('accessAllowed', () => {
-      
+      window.location.href = '/file-system';
+    });
+
+    socket.on('accessDeclined', () => {
+      alert("User hasn't accepted your request");
     });
   }
 
