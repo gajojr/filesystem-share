@@ -1,6 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 
 import { SocketContext } from '../../context/socket';
+import { FileSystemContainer } from './FileSystem.style';
+
+import FileTree from '../../components/FileSystemComponents/FileTree/FileTree.component';
 
 const FileSystem = () => {
   const socket = useContext(SocketContext);
@@ -9,6 +12,7 @@ const FileSystem = () => {
     socket.emit('createRoom');
 
     socket.on('roomCreated', roomId => {
+      // we need roomId for button that admin will click to copy and send to others
       sessionStorage.setItem('roomId', roomId);
     });
 
@@ -29,9 +33,9 @@ const FileSystem = () => {
   }, [socket])
 
   return (
-    <div>
-      File System
-    </div>
+    <FileSystemContainer>
+      <FileTree />
+    </FileSystemContainer>
   )
 }
 
